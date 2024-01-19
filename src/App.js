@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./routes/Home";
+import Register from "./routes/Register";
+import Login from "./routes/Login";
+import Header from "./components/Header";
+import ProtectedRoutes from "./routes/ProtectedRoutes";
+import CreateTicket from "./routes/CreateTicket";
+import ViewTickets from "./routes/ViewTickets";
+import ViewTicket from "./routes/ViewTicket";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <div className="page-container">
+        <Routes>
+          <Route path="/zenclass" element={<Home />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/new-ticket" element={<ProtectedRoutes />}>
+            <Route path="/new-ticket" element={<CreateTicket />}></Route>
+          </Route>
+          <Route path="/tickets" element={<ProtectedRoutes />}>
+            <Route path="/tickets" element={<ViewTickets />}></Route>
+          </Route>
+          <Route path="/ticket/:ticketId" element={<ProtectedRoutes />}>
+            <Route path="/ticket/:ticketId" element={<ViewTicket />}></Route>
+          </Route>
+        </Routes>
+      </div>
+    </>
   );
 }
 
